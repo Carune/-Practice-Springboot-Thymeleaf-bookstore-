@@ -20,8 +20,8 @@ public class MyBookListService {
 		mbRepo.save(book);
 	}
 	
-	public Page<MyBookList> getAllMyBooks(Pageable pageable){
-		return mbRepo.findAll(pageable);
+	public List<MyBookList> getAllMyBooks(){
+		return mbRepo.findAll();
 	}
 	
 	public void deleteById(int id) {
