@@ -76,21 +76,11 @@ public class BookController {
 	}
 	
 	@GetMapping("/my_books")
-	public String getMyBooks(Model model, @PageableDefault(page = 1, size = 5, sort = "id", direction = Sort.Direction.ASC) Pageable pageable) {
-		Page<MyBookList> list = myBookService.getAllMyBooks(pageable);
-		
-		 //페이지블럭 처리
-       //1을 더해주는 이유는 pageable은 0부터라 1을 처리하려면 1을 더해서 시작해주어야 한다.
-		int nowPage = list.getPageable().getPageNumber() + 1;
-		
-       //-1값이 들어가는 것을 막기 위해서 max값으로 두 개의 값을 넣고 더 큰 값을 넣어주게 된다.
-       int startPage =  Math.max(nowPage - 4, 1);
-       int endPage = Math.min(nowPage+4, list.getTotalPages());
+	public String getMyBooks(Model model) {
+		List<MyBookList> list = myBookService.getAllMyBooks();
 
        model.addAttribute("book", list);
-       model.addAttribute("nowPage",nowPage);
-       model.addAttribute("startPage", startPage);
-       model.addAttribute("endPage", endPage);
+
 		return "myBooks";
 	}
 	
